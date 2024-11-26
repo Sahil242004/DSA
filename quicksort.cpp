@@ -65,3 +65,15 @@ int main() {
     return 0;
 }
     
+
+// Enter the number of students: 5
+// Enter student name: Rahul
+// Enter credits for Rahul over the last 2 years: 40
+// Enter student name: Neha
+// Enter credits for Neha over the last 2 years: 50
+// Enter student name: Amit
+// Enter credits for Amit over the last 2 years: 30
+// Enter student name: Simran
+// Enter credits for Simran over the last 2 years: 60
+// Enter student name: Karan
+// Enter credits for Karan over the last 2 years: 45
