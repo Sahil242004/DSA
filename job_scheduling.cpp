@@ -63,3 +63,11 @@ int main() {
     jobScheduling();
     return 0;
 }
+
+
+// Job Deadline Profit
+// A 2 100
+// B 1 19
+// C 2 27
+// D 1 25
+// E 3 15
