@@ -117,3 +117,24 @@ int main() {
 
     return 0;
 }
+
+// Enter your choice: 1
+// Enter number of locations (vertices): 5
+// Enter number of roads (edges): 6
+// Graph initialized with 5 locations and 6 roads.
+
+// Enter your choice: 2
+// Enter 6 roads (format: source destination weight):
+// 0 1 10
+// 0 2 5
+// 1 2 2
+// 1 3 1
+// 2 3 9
+// 3 4 4
+// Roads added successfully.
+
+// Enter your choice: 3
+// Enter source location (A): 0
+// Enter destination location (B): 4
+// Shortest path distance: 14
+// Path: 0 -> 2 -> 1 -> 3 -> 4
