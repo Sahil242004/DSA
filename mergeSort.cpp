@@ -4,88 +4,81 @@
 
 using namespace std;
 
-// Structure to store student details
-struct Student {
-    string name;
-    int credits;
-};
+// Merge function to merge two halves
+void merge(vector<pair<string, int>>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
 
-// Merge function to combine two sorted subarrays
-void merge(vector<Student>& students, int left, int mid, int right) {
-    int n1 = mid - left + 1; // Size of the left subarray
-    int n2 = right - mid;    // Size of the right subarray
+    vector<pair<string, int>> leftArr(n1);
+    vector<pair<string, int>> rightArr(n2);
 
-    vector<Student> leftSub(n1);
-    vector<Student> rightSub(n2);
+    for (int i = 0; i < n1; i++) {
+        leftArr[i] = arr[left + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        rightArr[j] = arr[mid + 1 + j];
+    }
 
-    // Copy data to temporary subarrays
-    for (int i = 0; i < n1; ++i)
-        leftSub[i] = students[left + i];
-    for (int j = 0; j < n2; ++j)
-        rightSub[j] = students[mid + 1 + j];
-
-    // Merge the temporary arrays back into the original array
     int i = 0, j = 0, k = left;
     while (i < n1 && j < n2) {
-        if (leftSub[i].credits >= rightSub[j].credits) { // Sort in descending order
-            students[k] = leftSub[i];
-            ++i;
+        if (leftArr[i].second <= rightArr[j].second) {
+            arr[k] = leftArr[i];
+            i++;
         } else {
-            students[k] = rightSub[j];
-            ++j;
+            arr[k] = rightArr[j];
+            j++;
         }
-        ++k;
+        k++;
     }
 
-    // Copy remaining elements of leftSub (if any)
     while (i < n1) {
-        students[k] = leftSub[i];
-        ++i;
-        ++k;
+        arr[k] = leftArr[i];
+        i++;
+        k++;
     }
 
-    // Copy remaining elements of rightSub (if any)
     while (j < n2) {
-        students[k] = rightSub[j];
-        ++j;
-        ++k;
+        arr[k] = rightArr[j];
+        j++;
+        k++;
     }
 }
 
 // Merge Sort function
-void mergeSort(vector<Student>& students, int left, int right) {
-    if (left < right) {
-        int mid = left + (right - left) / 2;
+void mergeSort(vector<pair<string, int>>& arr, int left, int right) {
+    if (left >= right) return;
+    int mid = left + (right - left) / 2;
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+    merge(arr, left, mid, right);
+}
 
-        // Sort the first and second halves
-        mergeSort(students, left, mid);
-        mergeSort(students, mid + 1, right);
-
-        // Merge the sorted halves
-        merge(students, left, mid, right);
+// Function to display the student credits
+void displayCredits(const vector<pair<string, int>>& arr) {
+    for (const auto& student : arr) {
+        cout << "Student: " << student.first << ", Credits: " << student.second << endl;
     }
 }
 
 int main() {
-    // Example list of students
-    vector<Student> students = {
-        {"Sahil", 45},
-        {"Shivam", 30},
-        {"Onkar", 50},
-        {"Karan", 40},
-        {"Janhvi", 35}
-    };
+    int n;
+    cout << "Enter the number of students: ";
+    cin >> n;
 
-    int n = students.size();
+    vector<pair<string, int>> students(n);
 
-    // Sort the students by credits using Merge Sort
+    for (int i = 0; i < n; i++) {
+        cout << "Enter student name: ";
+        cin >> students[i].first;
+        cout << "Enter credits for " << students[i].first << ": ";
+        cin >> students[i].second;
+    }
+
+    // Sort using Merge Sort
     mergeSort(students, 0, n - 1);
 
-    // Display the sorted students
-    cout << "Students sorted by credits (in descending order):\n";
-    for (const auto& student : students) {
-        cout << student.name << " - " << student.credits << " credits\n";
-    }
+    cout << "\nSorted student credits:\n";
+    displayCredits(students);
 
     return 0;
 }
