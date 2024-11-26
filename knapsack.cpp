@@ -46,3 +46,11 @@ int main() {
     fractionalKnapsack();
     return 0;
 }
+
+
+// Enter the number of items: 3
+// Enter weight and value of each item:
+// 10 60
+// 20 100
+// 30 120
+// Enter the knapsack capacity: 50
