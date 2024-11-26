@@ -82,3 +82,13 @@ int main() {
 
     return 0;
 }
+
+
+
+// Enter the number of students: 3
+// Enter student name: Ravi
+// Enter credits for Ravi: 24
+// Enter student name: Priya
+// Enter credits for Priya: 30
+// Enter student name: Arjun
+// Enter credits for Arjun: 20
