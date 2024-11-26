@@ -1,144 +1,184 @@
-#include<iostream>
-#include<vector>
-#include<list>
-#include<string>
+#include <iostream>
+#include <vector>
+#include <list>
+#include <string>
 using namespace std;
 
-int table_size = 10;
-
+// Structure for storing client information
 struct Client {
     string name;
-    string number;
+    string phone;
 };
 
-int hashFunction(string name, int table_size) {
-    int hash = 0;
-    for(char c : name) {
-        hash += c;
-    }
-    return hash % table_size;
-}
-
+// Hash Table with Chaining (Separate Chaining with Linked List)
 class HashTableChaining {
-    private:
-    vector<list<pair<string,string>>> table;
+private:
+    vector<list<Client>> table;
+    int tableSize;
 
-    public:
-        HashTableChaining() {
-            table.resize(table_size);
+    int hashFunction(string key) {
+        int hash = 0;
+        for (char ch : key) {
+            hash = (hash + ch) % tableSize;
         }
-
-        void insert(string name, string phoneNumber) {
-            int index = hashFunction(name, table_size);
-            table[index].push_back(make_pair(name, phoneNumber));
-        }
-
-        string search(string name, int &comparisons) {
-            int index = hashFunction(name,table_size);
-            for(auto &entry: table[index]) {
-                comparisons++;
-                cout<<entry.first<<endl;
-                cout<<entry.second<<endl;
-                if(entry.first == name) {
-                    return entry.second;
-                }
-            }
-
-            return "NOT FOUND!";
-        }
-
-        void debugPrint() {
-            for (int i = 0; i < table_size; ++i) {
-            cout << "Index " << i << ": ";
-            for (auto &entry : table[i]) {
-                cout << "(" << entry.first << ", " << entry.second << ") ";
-            }
-            cout << endl;
+        return hash;
     }
-}
 
+public:
+    HashTableChaining(int size) {
+        tableSize = size;
+        table.resize(tableSize);
+    }
+
+    void insert(string name, string phone) {
+        int index = hashFunction(name);
+        table[index].push_back({name, phone});
+    }
+
+    string search(string name) {
+        int index = hashFunction(name);
+        for (auto &client : table[index]) {
+            if (client.name == name) {
+                return client.phone;
+            }
+        }
+        return "Not Found";
+    }
+
+    int countComparisons(string name) {
+        int index = hashFunction(name);
+        int comparisons = 0;
+        for (auto &client : table[index]) {
+            comparisons++;
+            if (client.name == name) {
+                return comparisons;
+            }
+        }
+        return comparisons;
+    }
 };
 
-class HashTableLinearProbing{
-    private:
-        vector<pair<string,string>> table;
-        vector<bool> isOccupied;
-    public:
-        HashTableLinearProbing() {
-            table.resize(table_size, {"",""});
-            isOccupied.resize(table_size,false);
-        }
+// Hash Table with Open Addressing (Linear Probing)
+class HashTableLinearProbing {
+private:
+    vector<Client> table;
+    int tableSize;
 
-        void insert(string name, string phoneNumber) {
-            int index = hashFunction(name, table_size);
-            while(isOccupied[index]) {
-                index = (index + 1) % table_size;
+    int hashFunction(string key) {
+        int hash = 0;
+        for (char ch : key) {
+            hash = (hash + ch) % tableSize;
+        }
+        return hash;
+    }
+
+public:
+    HashTableLinearProbing(int size) {
+        tableSize = size;
+        table.resize(tableSize);
+    }
+
+    void insert(string name, string phone) {
+        int index = hashFunction(name);
+        while (!table[index].name.empty()) {
+            index = (index + 1) % tableSize;
+        }
+        table[index] = {name, phone};
+    }
+
+    string search(string name) {
+        int index = hashFunction(name);
+        while (!table[index].name.empty()) {
+            if (table[index].name == name) {
+                return table[index].phone;
             }
-            table[index] = make_pair(name, phoneNumber);
-            isOccupied[index] = true;
+            index = (index + 1) % tableSize;
         }
+        return "Not Found";
+    }
 
-        string search(string name, int &comparisson) {
-            int index = hashFunction(name, table_size);
-            int startIndex = index;
-            while(isOccupied[index]) {
-                comparisson++;
-                if(table[index].first == name) {
-                    return table[index].second;
-                }
-                index = (index + 1) % table_size;
-                if(index == startIndex) {
-                    break;
-                }
+    int countComparisons(string name) {
+        int index = hashFunction(name);
+        int comparisons = 0;
+        while (!table[index].name.empty()) {
+            comparisons++;
+            if (table[index].name == name) {
+                return comparisons;
             }
-            return "NOT FOUND!";
+            index = (index + 1) % tableSize;
         }
-
-    //     void debugPrint() {
-    //         for (int i = 0; i < table_size; ++i) {
-    //         cout << "Index " << i << ": ";
-    //         for (auto &entry : table[i]) {
-    //             cout << "(" << entry.first << ", " << entry.second << ") ";
-    //         }
-    //         cout << endl;
-    // }
+        return comparisons;
+    }
 };
 
-void compareCollisonTechniques() {
-    vector<Client> clients = {{"sahil","932280"},{"om","987564"},{"shivan","534146"},{"vedant","978564"},
-    {"pratiksha","564523"},{"janvi","191919"}};
-
-    HashTableChaining htchaining;
-    HashTableLinearProbing htlinearprobing;
-    for(auto &client: clients) {
-        // cout<<"inserting"<<client.name<<" "<<client.number<<endl;
-        htchaining.insert(client.name, client.number);
-        htlinearprobing.insert(client.name, client.number);
-    }
-    
-    vector<string> searchNames = {"paul","jake","mike","sahil","unknown"};
-
-    for(const auto &name: searchNames) {
-        int chainingComparison = 0;
-        int probingChaining = 0;
-
-        cout<<"Searching in chaing and probing"<<endl;
-
-        string phoneChaining = htchaining.search(name, chainingComparison);
-        string phoneProbing = htlinearprobing.search(name, probingChaining);
-
-        cout<<"Searching for name "<<name<<endl;
-        cout<<"seperate chaining phone: "<<phoneChaining<<" ,comparison: "<<chainingComparison<<endl;
-        cout<<"linear probing phone: "<<phoneProbing<<" ,comparison: "<<probingChaining<<endl;
-        cout<<"----------------------\n";
-
-    }
-}
-
+// Main function to implement the menu-driven system
 int main() {
-    compareCollisonTechniques();
+    int choice, tableSize;
+
+    cout << "Enter table size for Hash Table: ";
+    cin >> tableSize;
+
+    HashTableChaining htChaining(tableSize);
+    HashTableLinearProbing htLinearProbing(tableSize);
+
+    do {
+        cout << "\nMenu:\n";
+        cout << "1. Insert a new client\n";
+        cout << "2. Search for a client's phone number\n";
+        cout << "3. Compare search performance between Chaining and Linear Probing\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                string name, phone;
+                cout << "Enter client's name: ";
+                cin >> name;
+                cout << "Enter client's phone number: ";
+                cin >> phone;
+
+                htChaining.insert(name, phone);
+                htLinearProbing.insert(name, phone);
+                cout << "Client inserted successfully.\n";
+                break;
+            }
+
+            case 2: {
+                string name;
+                cout << "Enter client's name to search: ";
+                cin >> name;
+
+                string phoneChaining = htChaining.search(name);
+                string phoneLinear = htLinearProbing.search(name);
+
+                cout << "Search Results:\n";
+                cout << "Chaining: " << (phoneChaining == "Not Found" ? "Client not found" : phoneChaining) << "\n";
+                cout << "Linear Probing: " << (phoneLinear == "Not Found" ? "Client not found" : phoneLinear) << "\n";
+                break;
+            }
+
+            case 3: {
+                string name;
+                cout << "Enter client's name to compare search performance: ";
+                cin >> name;
+
+                int comparisonsChaining = htChaining.countComparisons(name);
+                int comparisonsLinear = htLinearProbing.countComparisons(name);
+
+                cout << "Comparisons for Chaining: " << comparisonsChaining << "\n";
+                cout << "Comparisons for Linear Probing: " << comparisonsLinear << "\n";
+                break;
+            }
+
+            case 4:
+                cout << "Exiting...\n";
+                break;
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 4);
+
     return 0;
-
 }
-
-
