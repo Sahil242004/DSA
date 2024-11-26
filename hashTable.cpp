@@ -182,3 +182,31 @@ int main() {
 
     return 0;
 }
+
+
+
+// Enter table size for Hash Table: 5
+
+// Enter your choice: 1
+// Enter client's name: Rajesh
+// Enter client's phone number: 9876543210
+// Client inserted successfully.
+
+// Enter your choice: 1
+// Enter client's name: Priya
+// Enter client's phone number: 9123456789
+// Client inserted successfully.
+
+// Enter your choice: 2
+// Enter client's name to search: Rajesh
+// Search Results:
+// Chaining: 9876543210
+// Linear Probing: 9876543210
+
+// Enter your choice: 3
+// Enter client's name to compare search performance: Rajesh
+// Comparisons for Chaining: 1
+// Comparisons for Linear Probing: 1
+
+// Enter your choice: 4
+// Exiting...
