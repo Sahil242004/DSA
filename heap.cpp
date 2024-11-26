@@ -30,3 +30,18 @@ int main() {
     cout<<"Minimum marks are: "<<minQueue.top()<<endl;
     return 0;
 }
+
+
+
+// Enter the number of students
+// 5
+// Enter the marks of student 1
+// 75
+// Enter the marks of student 2
+// 85
+// Enter the marks of student 3
+// 60
+// Enter the marks of student 4
+// 92
+// Enter the marks of student 5
+// 78
