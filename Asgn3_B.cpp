@@ -112,3 +112,23 @@ int main() {
 
     return 0;
 }
+
+// Enter your choice: 1
+// Enter city name: Mumbai
+// City added!
+
+// Enter your choice: 1
+// Enter city name: Delhi
+// City added!
+
+// Enter your choice: 2
+// Enter first city: Mumbai
+// Enter second city: Delhi
+// Enter cost (time or fuel): 300
+// City added!
+
+// Enter your choice: 3
+// The graph is connected.
+
+// Enter your choice: 4
+// Exiting...Thank You! Have a nice day!
