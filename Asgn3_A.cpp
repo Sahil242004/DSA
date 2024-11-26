@@ -149,3 +149,34 @@ int main() {
 
     return 0;
 }
+
+// Enter your choice: 1
+// Enter name: Rohan
+// Enter DOB (DD/MM/YYYY): 15/03/1995
+// Enter number of comments: 100
+// User successfully added!
+
+// Enter your choice: 1
+// Enter name: Priya
+// Enter DOB (DD/MM/YYYY): 25/06/1992
+// Enter number of comments: 50
+// User successfully added!
+
+// Enter your choice: 2
+// Enter first user: Rohan
+// Enter second user: Priya
+// Friendship created!
+
+// Enter your choice: 3
+// User with maximum friends: Rohan (1 friends)
+
+// Enter your choice: 4
+// User with maximum comments: Rohan (100 comments)
+// User with minimum comments: Priya (50 comments)
+
+// Enter your choice: 5
+// Enter month (1-12): 3
+// Rohan has a birthday this month (15/03/1995)
+
+// Enter your choice: 6
+// Exiting...Thank You! Have a nice day! Or don't I really don't care.
