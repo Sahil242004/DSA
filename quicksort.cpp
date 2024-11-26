@@ -1,62 +1,67 @@
 // quicksrot
 // best case --> O(n log n)
 // worst case --> O(n^2)
+
+
 #include <iostream>
 #include <vector>
 #include <string>
-#include <algorithm> 
 
 using namespace std;
 
+// Partition function for Quick Sort
+int partition(vector<pair<string, int>>& arr, int low, int high) {
+    int pivot = arr[high].second;
+    int i = (low - 1);
 
-struct Student {
-    string name;
-    int credits;
-};
-
-
-int partition(vector<Student>& students, int low, int high) {
-    int pivot = students[high].credits; 
-    int i = low - 1;
-
-    for (int j = low; j < high; ++j) {
-        if (students[j].credits > pivot) { 
-            ++i;
-            swap(students[i], students[j]);
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j].second >= pivot) {
+            i++;
+            swap(arr[i], arr[j]);
         }
     }
-    swap(students[i + 1], students[high]);
-    return i + 1;
+    swap(arr[i + 1], arr[high]);
+    return (i + 1);
 }
 
-
-void quickSort(vector<Student>& students, int low, int high) {
+// Quick Sort function
+void quickSort(vector<pair<string, int>>& arr, int low, int high) {
     if (low < high) {
-        int pi = partition(students, low, high);
-        quickSort(students, low, pi - 1);
-        quickSort(students, pi + 1, high);
+        int pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+// Function to display the top 3 students
+void displayTop3(const vector<pair<string, int>>& arr) {
+    cout << "\nTop 3 students based on credits:\n";
+    for (int i = 0; i < 3 && i < arr.size(); i++) {
+        cout << "Student: " << arr[i].first << ", Credits: " << arr[i].second << endl;
     }
 }
 
 int main() {
+    int n;
+    cout << "Enter the number of students: ";
+    cin >> n;
 
-    vector<Student> students = {
-        {"Sahil", 85},
-        {"Shivam", 92},
-        {"Pratiksha", 78},
-        {"Tanmay", 95},
-        {"Rohan", 88}
-    };
+    vector<pair<string, int>> students(n);
 
-    int n = students.size();
+    for (int i = 0; i < n; i++) {
+        cout << "Enter student name: ";
+        cin >> students[i].first;
+        cout << "Enter credits for " << students[i].first << " over the last 2 years: ";
+        cin >> students[i].second;
+    }
 
-
+    // Sort using Quick Sort
     quickSort(students, 0, n - 1);
 
-    cout << "Top 3 Students:\n";
-    for (int i = 0; i < min(3, n); ++i) {
-        cout << i + 1 << ". " << students[i].name << " - " << students[i].credits << " credits\n";
-    }
+    // Display top 3 students
+    displayTop3(students);
 
     return 0;
 }
+    
