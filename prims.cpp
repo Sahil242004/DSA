@@ -144,3 +144,20 @@ int main() {
 
     return 0;
 }
+
+I/O for 4:
+
+// Enter number of vertices: 4
+// Enter number of edges: 5
+// Enter the edges (u v weight) (0-based index):
+// 0 1 10
+// 0 2 6
+// 0 3 5
+// 1 3 15
+// 2 3 4
+
+// Menu:
+// 1. Find MST using Prim's Algorithm
+// 2. Find MST using Kruskal's Algorithm
+// 3. Exit
+// Enter your choice: 1 or 2
