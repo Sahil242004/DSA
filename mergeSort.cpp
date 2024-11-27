@@ -1,3 +1,7 @@
+// time complexity
+// worst case bigO(n log n)
+// best case bigO(n log n)
+
 #include <iostream>
 #include <vector>
 #include <string>
