@@ -45,3 +45,5 @@ int main() {
 // 92
 // Enter the marks of student 5
 // 78
+
+time complexity--> O(n log n)
