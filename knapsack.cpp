@@ -54,3 +54,5 @@ int main() {
 // 20 100
 // 30 120
 // Enter the knapsack capacity: 50
+
+// time complexity O(n log n)
