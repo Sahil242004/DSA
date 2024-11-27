@@ -71,3 +71,5 @@ int main() {
 // C 2 27
 // D 1 25
 // E 3 15
+
+// time complexity--> O(n log n)
