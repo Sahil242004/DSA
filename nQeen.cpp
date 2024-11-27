@@ -64,3 +64,6 @@ int main() {
     solveNQueens();
     return 0;
 }
+
+
+// time complexity--> O(n!)
