@@ -98,5 +98,5 @@ int main() {
 // 1 3 15
 // 2 3 4
 
-// time complrxity BIG O(E log E)
+// time complrxity BIG O(E log V)
 // space complexity bigO (e+v)
